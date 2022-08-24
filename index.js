@@ -22,5 +22,5 @@ app.use(
     }),
 );
 
-const Router = require('./src/router/router');
-app.use('/customer', Router);
+const Router = require('./api/src/router/router');
+app.use('/api/customer', Router);
