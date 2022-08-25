@@ -12,6 +12,7 @@ const Pet = new mongoose.Schema({
 
 const CustomerSchema = new mongoose.Schema({
     name: { type: String, required: true },
+    lastName: {type: String, required: true},
     phone: { type: String, required: true },
     payment: { type: Boolean, required: true },
     pets: [Pet]
@@ -98,17 +99,21 @@ class Customer {
 
     async validate() {
         if (!this.body.name) {
-            this.error.push('Inserira um nome')
+            this.error.push('Insira o nome')
             this.http_status = 422
         }
 
+        if(!this.body.lastName){
+            this.error.push('Insira o sobrenome')
+        }
+
         if (!this.body.phone) {
-            this.error.push('Inserira um telefone')
+            this.error.push('Insira o telefone')
             this.http_status = 422
         }
         
-        if(this.body.phone.length !== 11){
-            this.error.push('O número do telefone precisa ter o DDD e mais 9 Dígitos')
+        if(this.body.phone.length !== 13){
+            this.error.push('Número inválido')
             this.http_status = 422
         }
 
