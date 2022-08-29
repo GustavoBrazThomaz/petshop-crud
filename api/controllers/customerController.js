@@ -15,7 +15,7 @@ exports.createCustomer = async (req, res) => {
     } catch (err) {
         console.log(err)
     }
-
+    
 };
 
 exports.getAllCustomer = async (req, res) => {
