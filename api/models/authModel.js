@@ -20,15 +20,6 @@ class Auth {
     this.token = null;
   }
 
-  async userExists(cpf) {
-    const user = await authModel.findOne({ cpf: cpf });
-
-    if (user) {
-      this.error.push("usuário já existe");
-      return;
-    }
-  }
-
   async postNewUser() {
     const { name, email, cpf, password, confirmPassword } = this.body;
 
@@ -59,7 +50,12 @@ class Auth {
       return;
     }
 
-    await this.userExists(cpf);
+    const user = await authModel.findOne({ cpf: cpf });
+
+    if (user) {
+      this.error.push("usuário já existe");
+      return
+    }
 
     const salt = await bcrypt.genSalt(12);
     const passwordHash = await bcrypt.hash(password, salt);
